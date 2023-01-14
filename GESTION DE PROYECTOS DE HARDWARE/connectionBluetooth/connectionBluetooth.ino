@@ -5,7 +5,7 @@
 const int LEDR = D4;
 const int LEDV = D5;
 
-const char serialRead, portSerialRead;
+String serialRead, portSerialRead;
 
 SoftwareSerial serial(RX, TX); // RX, TX
 
@@ -27,10 +27,10 @@ void setup() {
 
 void loop() { // run over and over
   switch(serial.available()){
-    case "on":
+    case 'on':
       onMotor();
       break;
-    case "off":
+    case 'off':
       offMotor();
       break;
   }
