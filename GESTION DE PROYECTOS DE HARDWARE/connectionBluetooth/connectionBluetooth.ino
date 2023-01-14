@@ -3,42 +3,46 @@
 #define TX 1
 
 const int LEDR = D4;
-const int LEDV = D5;
-
-String serialRead, portSerialRead;
+const int LEDV = D3;
+char a;
 
 SoftwareSerial serial(RX, TX); // RX, TX
 
 void setup() {
   Serial.begin(9600);
-  while (!Serial) {
-    ; // wait for serial port to connect. Needed for native USB port only
-  }
   pinMode(LEDR, OUTPUT);
   pinMode(LEDV, OUTPUT);
 
   digitalWrite(LEDR, LOW);
   digitalWrite(LEDV, LOW);
 
-  Serial.println("Holiiiiiiis");
   serial.begin(9600);
-  serial.println("Conectando blue.....");
+  serial.println("Conectando bluetooth...");
 }
 
 void loop() { // run over and over
-  switch(Serial.available()){
-    case 'on':
+  if(serial.available()){
+    a = serial.read();
+    if(a == '1'){
       onMotor();
-      break;
-    case 'off':
+    }else if(a == '2'){
       offMotor();
-      break;
+    }
+  }else{
+    Serial.println("No hay nada putito");
   }
+  delay(1500);
+  
+  
 }
 
 void onMotor(){
   digitalWrite(LEDV, HIGH);
+  Serial.println("MOTOR ENCENDIDO");
+  digitalWrite(LEDR, LOW);
 }
 void offMotor(){
   digitalWrite(LEDR, HIGH);
+  Serial.println("MOTOR APAGADO");
+  digitalWrite(LEDV, LOW);
 }
