@@ -26,7 +26,7 @@ void setup() {
 }
 
 void loop() { // run over and over
-  switch(serial.available()){
+  switch(Serial.available()){
     case 'on':
       onMotor();
       break;
